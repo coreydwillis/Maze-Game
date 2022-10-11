@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6865355946785736753}
   - component: {fileID: 6865355946785736752}
   m_Layer: 0
-  m_Name: Cone
+  m_Name: Purple
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -500,7 +500,7 @@ GameObject:
   - component: {fileID: 6865355947054257046}
   - component: {fileID: 6865355947054257045}
   m_Layer: 0
-  m_Name: Pipe (1)
+  m_Name: Purple
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1387,7 +1387,7 @@ GameObject:
   - component: {fileID: 6865355947569301341}
   - component: {fileID: 6865355947569301340}
   m_Layer: 0
-  m_Name: Pipe
+  m_Name: Purple
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2309,7 +2309,7 @@ GameObject:
   - component: {fileID: 6865355948317113632}
   - component: {fileID: 6865355948317113647}
   m_Layer: 0
-  m_Name: Arch (1)
+  m_Name: Purple
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

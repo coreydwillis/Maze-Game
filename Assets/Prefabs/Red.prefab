@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5522057552467960637}
   - component: {fileID: 5522057552467960626}
   m_Layer: 0
-  m_Name: Enemy_Red
+  m_Name: Red
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
