@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class EnemyPurple : Enemy
 {
+    // INHERITANCE
     void Start()
     {
         walkPointRange = 2f;

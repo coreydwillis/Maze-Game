@@ -9,10 +9,11 @@ public class Player : MonoBehaviour
     public int greenShards;
     public int redShards;
     public int purpleShards;
+    private MainManager manager;
 
     void Start()
     {
-        
+        manager = GameObject.Find("MainManager").GetComponent<MainManager>();
     }
 
     // Update is called once per frame
@@ -23,13 +24,13 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Check to see if the tag on the collider is equal to Enemy
-        if (gameOver == false)
+        if (manager.GameOver == false)
         {
             if (other.tag == "Objective")
             {
-                gameOver = true;
+                manager.GameOver = true;
                 win = true;
-                Debug.Log(gameOver + " " + win);
+                Debug.Log(manager.GameOver + " " + win);
             }
             if (other.tag == "Enemy")
             {
@@ -43,9 +44,9 @@ public class Player : MonoBehaviour
                     }
                     else
                     {
-                        gameOver = true;
+                        manager.GameOver = true;
                         win = false;
-                        Debug.Log(gameOver + " " + win);
+                        Debug.Log(manager.GameOver + " " + win);
                     }
                 }
                 if (other.gameObject.name == "Red")
@@ -54,12 +55,13 @@ public class Player : MonoBehaviour
                     {
                         redShards--;
                         Destroy(other.gameObject);
+                        Destroy(other.transform.parent.gameObject);
                     }
                     else
                     {
-                        gameOver = true;
+                        manager.GameOver = true;
                         win = false;
-                        Debug.Log(gameOver + " " + win);
+                        Debug.Log(manager.GameOver + " " + win);
                     }
                 }
                 if (other.gameObject.name == "Purple")
@@ -72,9 +74,9 @@ public class Player : MonoBehaviour
                     }
                     else
                     {
-                        gameOver = true;
+                        manager.GameOver = true;
                         win = false;
-                        Debug.Log(gameOver + " " + win);
+                        Debug.Log(manager.GameOver + " " + win);
                     }
                 }
             }

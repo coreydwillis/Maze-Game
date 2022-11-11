@@ -10,11 +10,18 @@ public class PlayerMovement : MonoBehaviour
 
     public float speed = 12f;
     public float gravity = -9.81f;
+    private MainManager manager;
 
     Vector3 velocity;
 
+    private void Start()
+    {
+        manager = GameObject.Find("MainManager").GetComponent<MainManager>();
+    }
     void Update()
     {
+        if (!manager.GameOver)
+        {
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
 
@@ -24,5 +31,6 @@ public class PlayerMovement : MonoBehaviour
 
             velocity.y += gravity * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
+        }
     }
 }
