@@ -19,19 +19,21 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Test push
+        
     }
     private void OnTriggerEnter(Collider other)
     {
-        //Check to see if the tag on the collider is equal to Enemy
-        if (manager.GameOver == false)
+        //Check to see if the game is over
+        if (!manager.GameOver)
         {
+            //Check to see if the tag on the collider is equal to Objective
             if (other.tag == "Objective")
             {
                 manager.GameOver = true;
                 win = true;
                 Debug.Log(manager.GameOver + " " + win);
             }
+            //Check to see if the tag on the collider is equal to Enemy
             if (other.tag == "Enemy")
             {
                 if (other.gameObject.name == "Green")
