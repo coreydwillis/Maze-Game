@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public bool gameOver;
-    public bool win;
-    public int greenShards;
-    public int redShards;
-    public int purpleShards;
     private MainManager manager;
 
     void Start()
@@ -30,55 +25,52 @@ public class Player : MonoBehaviour
             if (other.tag == "Objective")
             {
                 manager.GameOver = true;
-                win = true;
-                Debug.Log(manager.GameOver + " " + win);
+                manager.GameWin = true;
+                Debug.Log(manager.GameOver + " " + manager.GameWin);
             }
             //Check to see if the tag on the collider is equal to Enemy
             if (other.tag == "Enemy")
             {
                 if (other.gameObject.name == "Green")
                 {
-                    if (greenShards > 0)
+                    if (manager.greenShards > 0)
                     {
-                        greenShards--;
+                        manager.greenShards--;
                         Destroy(other.gameObject);
                         Destroy(other.transform.parent.gameObject);
                     }
                     else
                     {
                         manager.GameOver = true;
-                        win = false;
-                        Debug.Log("Game Over: " + manager.GameOver + " Win: " + win);
+                        manager.GameWin = false;
                     }
                 }
                 if (other.gameObject.name == "Red")
                 {
-                    if (redShards > 0)
+                    if (manager.redShards > 0)
                     {
-                        redShards--;
+                        manager.redShards--;
                         Destroy(other.gameObject);
                         Destroy(other.transform.parent.gameObject);
                     }
                     else
                     {
                         manager.GameOver = true;
-                        win = false;
-                        Debug.Log("Game Over: " + manager.GameOver + " Win: " + win);
+                        manager.GameWin = false;
                     }
                 }
                 if (other.gameObject.name == "Purple")
                 {
-                    if (purpleShards > 0)
+                    if (manager.purpleShards > 0)
                     {
-                        purpleShards--;
+                        manager.purpleShards--;
                         Destroy(other.gameObject);
                         Destroy(other.transform.parent.gameObject);
                     }
                     else
                     {
                         manager.GameOver = true;
-                        win = false;
-                        Debug.Log("Game Over: " + manager.GameOver + " Win: " + win);
+                        manager.GameWin = false;
                     }
                 }
             }
@@ -86,17 +78,17 @@ public class Player : MonoBehaviour
             {
                 if (other.gameObject.name == "Green")
                 {
-                    greenShards++;
+                    manager.greenShards++;
                     Destroy(other.gameObject);
                 }
                 if (other.gameObject.name == "Red")
                 {
-                    redShards++;
+                    manager.redShards++;
                     Destroy(other.gameObject);
                 }
                 if (other.gameObject.name == "Purple")
                 {
-                    purpleShards++;
+                    manager.purpleShards++;
                     Destroy(other.gameObject);
                 }
             }

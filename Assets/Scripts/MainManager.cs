@@ -7,11 +7,16 @@ public class MainManager : MonoBehaviour
 {
     public static MainManager Instance { get; private set; }
     public bool GameOver;
+    public bool GameWin;
     public float fovSet;
+
+    //Shard Values
+    public int greenShards;
+    public int redShards;
+    public int purpleShards;
 
     private void Awake()
     {
-        fovSet = 60;
         if (Instance != null)
         {
             Destroy(gameObject);

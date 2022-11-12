@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class UITitleScreen : MonoBehaviour
 {
     private MainManager manager;
-    public GameObject postProcessing;
+    private GameObject postProcessing;
 
     //UI Elements
     public Toggle postProcessingToggle;
@@ -23,6 +23,7 @@ public class UITitleScreen : MonoBehaviour
     void Start()
     {
         manager = GameObject.Find("MainManager").GetComponent<MainManager>();
+        postProcessing = GameObject.Find("PostProcess");
         startBTN.onClick.AddListener(StartGame);
     }
 
@@ -31,11 +32,15 @@ public class UITitleScreen : MonoBehaviour
     {
         if (postProcessingToggle.isOn)
         {
-            postProcessing.SetActive(true);
+            GameObject postPChild = postProcessing.transform.GetChild(0).gameObject;
+            postPChild.SetActive(true);
+            postProcessingToggle.isOn = true;
         }
         else
         {
-            postProcessing.SetActive(false);
+            GameObject postPChild = postProcessing.transform.GetChild(0).gameObject;
+            postPChild.SetActive(false);
+            postProcessingToggle.isOn = false;
         }
         manager.fovSet = fovSlider.value;
         //Set Camera FOV

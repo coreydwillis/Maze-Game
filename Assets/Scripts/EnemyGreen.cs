@@ -35,7 +35,6 @@ public class EnemyGreen : Enemy
         while (true)
         {
             yield return new WaitForSeconds(waitTime);
-            Debug.Log("bark");
             screamSound.Play();
             StartCoroutine(coroutine);
         }
