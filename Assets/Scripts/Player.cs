@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
                     {
                         manager.GameOver = true;
                         win = false;
-                        Debug.Log(manager.GameOver + " " + win);
+                        Debug.Log("Game Over: " + manager.GameOver + " Win: " + win);
                     }
                 }
                 if (other.gameObject.name == "Red")
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
                     {
                         manager.GameOver = true;
                         win = false;
-                        Debug.Log(manager.GameOver + " " + win);
+                        Debug.Log("Game Over: " + manager.GameOver + " Win: " + win);
                     }
                 }
                 if (other.gameObject.name == "Purple")
@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
                     {
                         manager.GameOver = true;
                         win = false;
-                        Debug.Log(manager.GameOver + " " + win);
+                        Debug.Log("Game Over: " + manager.GameOver + " Win: " + win);
                     }
                 }
             }

@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainManager : MonoBehaviour
+public class PostProcessing : MonoBehaviour
 {
-    public static MainManager Instance { get; private set; }
-    public bool GameOver;
-    public float fovSet;
+    public static PostProcessing Instance { get; private set; }
 
     private void Awake()
     {
-        fovSet = 60;
+        // start of new code
         if (Instance != null)
         {
             Destroy(gameObject);
             return;
         }
+        // end of new code
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
