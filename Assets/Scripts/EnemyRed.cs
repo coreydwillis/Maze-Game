@@ -5,9 +5,12 @@ using UnityEngine.UIElements;
 
 public class EnemyRed : Enemy
 {
+    private AudioSource redAudioSource;
     // INHERITANCE
     void Start()
     {
+        redAudioSource = GetComponent<AudioSource>();
+        redAudioSource.pitch = 2.5f;
         walkPointRange = 20;
         sightRange = 30f;
         attackRange = 1f;

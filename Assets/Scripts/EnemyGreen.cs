@@ -1,23 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class EnemyGreen : Enemy
 {
-    private AudioSource screamSound;
+    private AudioSource creepyAudioSource;
+    private AudioClip creepySound;
     private IEnumerator coroutine;
     private float randRange;
 
     void Start()
     {
-        screamSound = GetComponent<AudioSource>();
+        creepyAudioSource = GetComponent<AudioSource>();
+        creepyAudioSource.pitch = 0.5f;
+        creepySound = AssetDatabase.LoadAssetAtPath("Assets/Sounds/creepy.wav", typeof(AudioClip)) as AudioClip;
         //walkPointRange = 3f;
-        sightRange = 1f;
+        sightRange = 15f;
         attackRange = 1f;
         timeBetweenAttacks = 1f;
-        randRange = Random.Range(25.0f, 60.0f);
+        randRange = Random.Range(15.0f, 35.0f);
         coroutine = WaitAndSound(randRange);
         StartCoroutine(coroutine);
     }
@@ -35,7 +39,7 @@ public class EnemyGreen : Enemy
         while (true)
         {
             yield return new WaitForSeconds(waitTime);
-            screamSound.Play();
+            creepyAudioSource.PlayOneShot(creepySound, 25.0f);
             StartCoroutine(coroutine);
         }
     }
