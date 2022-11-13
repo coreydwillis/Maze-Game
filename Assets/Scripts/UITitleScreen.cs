@@ -15,11 +15,18 @@ public class UITitleScreen : MonoBehaviour
     public Button startBTN;
     public Button exitBTN;
     public Button websiteBTN;
+    public Button resBackBTN;
+    public Button resNextBTN;
     public Slider fovSlider;
     public TextMeshProUGUI fovValue;
 
     //Camera Object
     public Camera titleCamera;
+
+    //Resolution Variables
+    public List<ResItem> resolutions = new List<ResItem>();
+    public TMP_Text resolutionLabel;
+    private int selectedResolution;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +36,11 @@ public class UITitleScreen : MonoBehaviour
         startBTN.onClick.AddListener(StartGame);
         exitBTN.onClick.AddListener(ExitGame);
         websiteBTN.onClick.AddListener(OpenWebsite);
+
+        //Resolution Button listeners
+        resBackBTN.onClick.AddListener(ResLeft);
+        resNextBTN.onClick.AddListener(ResRight);
+        UpdateResolution();
     }
 
     // Update is called once per frame
@@ -51,6 +63,39 @@ public class UITitleScreen : MonoBehaviour
         titleCamera.fieldOfView = manager.fovSet;
         fovValue.text = manager.fovSet.ToString();
     }
+
+    public void ResLeft()
+    {
+        selectedResolution--;
+        if(selectedResolution < 0)
+        {
+            selectedResolution = 0;
+        }
+        UpdateResLabel();
+        UpdateResolution();
+    }
+
+    public void ResRight()
+    {
+        selectedResolution++;
+        if(selectedResolution > resolutions.Count - 1)
+        {
+            selectedResolution = resolutions.Count - 1;
+        }
+        UpdateResLabel();
+        UpdateResolution();
+    }
+
+    public void UpdateResLabel()
+    {
+        resolutionLabel.text = resolutions[selectedResolution].horizontal.ToString() + " x " + resolutions[selectedResolution].vertical.ToString();
+    }
+
+    private void UpdateResolution()
+    {
+        Screen.SetResolution(resolutions[selectedResolution].horizontal, resolutions[selectedResolution].vertical, true);
+    }
+
     void StartGame()
     {
         SceneManager.LoadScene("Maze");
@@ -64,4 +109,10 @@ public class UITitleScreen : MonoBehaviour
     {
         Application.OpenURL("http://coreywillis.com");
     }
+}
+
+[System.Serializable]
+public class ResItem
+{
+    public int horizontal, vertical;
 }
