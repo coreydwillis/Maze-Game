@@ -14,6 +14,7 @@ public class UITitleScreen : MonoBehaviour
     public Toggle postProcessingToggle;
     public Button startBTN;
     public Button exitBTN;
+    public Button websiteBTN;
     public Slider fovSlider;
     public TextMeshProUGUI fovValue;
 
@@ -27,6 +28,7 @@ public class UITitleScreen : MonoBehaviour
         postProcessing = GameObject.Find("PostProcess");
         startBTN.onClick.AddListener(StartGame);
         exitBTN.onClick.AddListener(ExitGame);
+        websiteBTN.onClick.AddListener(OpenWebsite);
     }
 
     // Update is called once per frame
@@ -56,5 +58,10 @@ public class UITitleScreen : MonoBehaviour
     void ExitGame()
     {
         Application.Quit();
+    }
+
+    void OpenWebsite()
+    {
+        Application.OpenURL("http://coreywillis.com");
     }
 }
