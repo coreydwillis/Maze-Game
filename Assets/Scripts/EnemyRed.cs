@@ -10,11 +10,12 @@ public class EnemyRed : Enemy
     void Start()
     {
         redAudioSource = GetComponent<AudioSource>();
-        redAudioSource.pitch = 2.5f;
+        redAudioSource.pitch = 1.3f;
         walkPointRange = 20;
         sightRange = 30f;
         attackRange = 1f;
         timeBetweenAttacks = 1f;
+        timeBetweenChases = 15f;
     }
 
     public override void Update()

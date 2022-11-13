@@ -1,16 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     private MainManager manager;
     private AudioSource audioSource;
-    private AudioClip explosionSound;
-    private AudioClip attackSound;
-    private AudioClip dingSound;
-    private AudioClip mazeMusic;
+    public AudioClip[] soundEffects;
 
     void Start()
     {
@@ -27,12 +24,6 @@ public class Player : MonoBehaviour
     private void SetupAudio()
     {
         audioSource = GetComponent<AudioSource>();
-    
-        explosionSound = AssetDatabase.LoadAssetAtPath("Assets/Sounds/explosion.wav", typeof(AudioClip)) as AudioClip;
-        mazeMusic = AssetDatabase.LoadAssetAtPath("Assets/Sounds/Music/MazeMusic.wav", typeof(AudioClip)) as AudioClip;
-        attackSound = AssetDatabase.LoadAssetAtPath("Assets/Sounds/attack.wav", typeof(AudioClip)) as AudioClip;
-        dingSound = AssetDatabase.LoadAssetAtPath("Assets/Sounds/ding.wav", typeof(AudioClip)) as AudioClip;
-        audioSource.PlayOneShot(mazeMusic, 0.25f);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -53,13 +44,15 @@ public class Player : MonoBehaviour
                     if (manager.greenShards > 0)
                     {
                         manager.greenShards--;
-                        audioSource.PlayOneShot(explosionSound);
+                        audioSource.clip = soundEffects[0];
+                        audioSource.Play();
                         Destroy(other.gameObject);
                         Destroy(other.transform.parent.gameObject);
                     }
                     else
                     {
-                        audioSource.PlayOneShot(attackSound, 10f);
+                        audioSource.clip = soundEffects[2];
+                        audioSource.Play();
                         manager.GameOver = true;
                         manager.GameWin = false;
                     }
@@ -69,13 +62,15 @@ public class Player : MonoBehaviour
                     if (manager.redShards > 0)
                     {
                         manager.redShards--;
-                        audioSource.PlayOneShot(explosionSound);
+                        audioSource.clip = soundEffects[0];
+                        audioSource.Play();
                         Destroy(other.gameObject);
                         Destroy(other.transform.parent.gameObject);
                     }
                     else
                     {
-                        audioSource.PlayOneShot(attackSound, 10f);
+                        audioSource.clip = soundEffects[2];
+                        audioSource.Play();
                         manager.GameOver = true;
                         manager.GameWin = false;
                     }
@@ -85,13 +80,15 @@ public class Player : MonoBehaviour
                     if (manager.purpleShards > 0)
                     {
                         manager.purpleShards--;
-                        audioSource.PlayOneShot(explosionSound);
+                        audioSource.clip = soundEffects[0];
+                        audioSource.Play();
                         Destroy(other.gameObject);
                         Destroy(other.transform.parent.gameObject);
                     }
                     else
                     {
-                        audioSource.PlayOneShot(attackSound, 10f);
+                        audioSource.clip = soundEffects[2];
+                        audioSource.Play();
                         manager.GameOver = true;
                         manager.GameWin = false;
                     }
@@ -102,19 +99,22 @@ public class Player : MonoBehaviour
                 if (other.gameObject.name == "Green")
                 {
                     manager.greenShards++;
-                    audioSource.PlayOneShot(dingSound, 1.5f);
+                    audioSource.clip = soundEffects[3];
+                    audioSource.Play();
                     Destroy(other.gameObject);
                 }
                 if (other.gameObject.name == "Red")
                 {
                     manager.redShards++;
-                    audioSource.PlayOneShot(dingSound, 1.5f);
+                    audioSource.clip = soundEffects[3];
+                    audioSource.Play();
                     Destroy(other.gameObject);
                 }
                 if (other.gameObject.name == "Purple")
                 {
                     manager.purpleShards++;
-                    audioSource.PlayOneShot(dingSound, 1.5f);
+                    audioSource.clip = soundEffects[3];
+                    audioSource.Play();
                     Destroy(other.gameObject);
                 }
             }

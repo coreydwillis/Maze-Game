@@ -57871,6 +57871,11 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
+  soundEffects:
+  - {fileID: 8300000, guid: f27c44923ea07084880568382e763cf3, type: 3}
+  - {fileID: 8300000, guid: d857422ff80fb584ea18f79f59078722, type: 3}
+  - {fileID: 8300000, guid: 28b878c78f7c45f45abaecded5cfd337, type: 3}
+  - {fileID: 8300000, guid: 10958041244e586419bcd7e4e68bd9d8, type: 3}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 0
   timeBetweenAttacks: 0

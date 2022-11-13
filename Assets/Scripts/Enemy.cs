@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,11 +10,10 @@ public class Enemy : MonoBehaviour
     public Transform player;
 
     private AudioSource audioSource;
-    private AudioClip huhSound;
-    private AudioClip explosionSound;
-    private AudioClip attackSound;
     public LayerMask whatIsGround, whatIsPlayer;
+    public AudioClip[] soundEffects;
 
+ 
     //Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -24,6 +22,10 @@ public class Enemy : MonoBehaviour
     //Attacking
     public float timeBetweenAttacks;
     bool alreadyAttacked;
+
+    //Chasing Sounds
+    public float timeBetweenChases;
+    bool alreadyChased;
 
     //States
     public float sightRange, attackRange;
@@ -53,10 +55,6 @@ public class Enemy : MonoBehaviour
     private void LoadAudio()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.volume = 0.15f;
-        huhSound = AssetDatabase.LoadAssetAtPath("Assets/Sounds/huh.wav", typeof(AudioClip)) as AudioClip;
-        explosionSound = AssetDatabase.LoadAssetAtPath("Assets/Sounds/explosion.wav", typeof(AudioClip)) as AudioClip;
-        attackSound = AssetDatabase.LoadAssetAtPath("Assets/Sounds/attack.wav", typeof(AudioClip)) as AudioClip;
     }
 
     private void Patroling()
@@ -82,8 +80,16 @@ public class Enemy : MonoBehaviour
 
     private void ChasePlayer()
     {
+        if (!alreadyChased)
+        {
+            audioSource.clip = soundEffects[0];
+            audioSource.Play();
+            //Attack logic goes here
+            alreadyChased = true;
+            Invoke(nameof(ResetChased), timeBetweenChases);
+        }
+
         agent.SetDestination(player.position);
-        audioSource.PlayOneShot(huhSound, 2.0f);
     }
 
     private void AttackPlayer()
@@ -95,8 +101,8 @@ public class Enemy : MonoBehaviour
         if (!alreadyAttacked)
         {
             //Attack logic goes here
-            audioSource.PlayOneShot(attackSound, 10f);
-            explosion.Play();
+            audioSource.clip = soundEffects[2];
+            audioSource.Play();
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
@@ -105,6 +111,10 @@ public class Enemy : MonoBehaviour
     private void ResetAttack()
     {
         alreadyAttacked = false;
+    }
+        private void ResetChased()
+    {
+        alreadyChased = false;
     }
 
     private void TakeDamage()

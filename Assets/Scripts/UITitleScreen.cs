@@ -13,6 +13,7 @@ public class UITitleScreen : MonoBehaviour
     //UI Elements
     public Toggle postProcessingToggle;
     public Button startBTN;
+    public Button exitBTN;
     public Slider fovSlider;
     public TextMeshProUGUI fovValue;
 
@@ -25,6 +26,7 @@ public class UITitleScreen : MonoBehaviour
         manager = GameObject.Find("MainManager").GetComponent<MainManager>();
         postProcessing = GameObject.Find("PostProcess");
         startBTN.onClick.AddListener(StartGame);
+        exitBTN.onClick.AddListener(ExitGame);
     }
 
     // Update is called once per frame
@@ -50,5 +52,9 @@ public class UITitleScreen : MonoBehaviour
     void StartGame()
     {
         SceneManager.LoadScene("Maze");
+    }
+    void ExitGame()
+    {
+        Application.Quit();
     }
 }
