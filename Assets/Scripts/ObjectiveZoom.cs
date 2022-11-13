@@ -8,12 +8,14 @@ public class ObjectiveZoom : MonoBehaviour
     private float forwardSpeed;
     private float downSpeed;
     private float rotateSpeed;
+    private bool rotateFlip;
     // Start is called before the first frame update
     void Start()
     {
         forwardSpeed = 10f;
         downSpeed = 0.75f;
         rotateSpeed = 3f;
+        rotateFlip = true;
     }
 
     // Update is called once per frame
@@ -27,9 +29,21 @@ public class ObjectiveZoom : MonoBehaviour
         {
             m_Camera.transform.Translate(Vector3.down * downSpeed * Time.deltaTime);
         }
-        if (m_Camera.transform.position.z < -74)
+        if (m_Camera.transform.position.z < -74 & rotateFlip)
         {
             m_Camera.transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
+        }
+        if (m_Camera.transform.position.z < -74 & !rotateFlip)
+        {
+            m_Camera.transform.Rotate(0, -rotateSpeed * Time.deltaTime, 0);
+        }
+        if (m_Camera.transform.localEulerAngles.y >= 228.9158 & rotateFlip)
+        {
+            rotateFlip= false;
+        }
+        if (m_Camera.transform.localEulerAngles.y <= 167.2815 & !rotateFlip)
+        {
+            rotateFlip = true;
         }
     }
 }
