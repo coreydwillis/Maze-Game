@@ -9,6 +9,8 @@ public class MainManager : MonoBehaviour
     public static MainManager Instance { get; private set; }
     public bool GameOver { get; set; }
     public bool GameWin { get; set; }
+    public bool FlashOn { get; set; }
+    public bool BabyModeOn { get; set; }
 
     private float fov;
     public MainManager(float fov)
@@ -45,6 +47,7 @@ public class MainManager : MonoBehaviour
 
     private void Awake()
     {
+        BabyModeOn = false;
         if (Instance != null)
         {
             Destroy(gameObject);

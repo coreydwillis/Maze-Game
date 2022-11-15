@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class EnemyGreen : Enemy
 {
+    private MainManager manager;
     private AudioSource creepyAudioSource;
     private IEnumerator coroutine;
     private float randRange;
@@ -14,11 +15,23 @@ public class EnemyGreen : Enemy
     void Start()
     {
         creepyAudioSource = GetComponent<AudioSource>();
-        creepyAudioSource.pitch = 0.45f;
-        sightRange = 15f;
-        attackRange = 1f;
-        timeBetweenAttacks = 1f;
-        timeBetweenChases = 15f;
+        manager = GameObject.Find("MainManager").GetComponent<MainManager>();
+        if (manager.BabyModeOn)
+        {
+            sightRange = 15f;
+            attackRange = 1f;
+            timeBetweenAttacks = 1f;
+            timeBetweenChases = 25f;
+            creepyAudioSource.pitch = 1f;
+        }
+        else
+        {
+            sightRange = 20f;
+            attackRange = 1f;
+            timeBetweenAttacks = 1f;
+            timeBetweenChases = 15f;
+            creepyAudioSource.pitch = 0.45f;
+        }
         randRange = Random.Range(35.0f, 70.0f);
         coroutine = WaitAndSound(randRange);
         StartCoroutine(coroutine);
@@ -28,7 +41,7 @@ public class EnemyGreen : Enemy
     public override void Update()
     {
         base.Update();
-        float walkRange = Random.Range(5.0f, 300.0f);
+        float walkRange = Random.Range(10f, 50f);
         walkPointRange = walkRange;
     }
 

@@ -9,21 +9,69 @@ public class Player : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip[] soundEffects;
 
+    public Light flashLight;
+    private bool wonSoundUnplayed;
+
     void Start()
     {
         SetupAudio();
         manager = GameObject.Find("MainManager").GetComponent<MainManager>();
+        manager.FlashOn = true;
+        wonSoundUnplayed = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown("f") && !manager.GameOver)
+        {
+            ToggleFlashLight();
+        }
+
+        if (Input.GetKeyDown("escape"))
+        {
+            ExitGame();
+        }
+        if (manager.GameOver && manager.GameWin)
+        {
+            print("You won!");
+        }
+            if (manager.GameOver && manager.GameWin)
+        {
+            if (wonSoundUnplayed)
+            {
+                audioSource.clip = soundEffects[6];
+                audioSource.Play();
+                wonSoundUnplayed = false;
+            }
+        }
+    }
+
+    private void ToggleFlashLight()
+    {
+        if (manager.FlashOn)
+        {
+            flashLight.gameObject.SetActive(false);
+            manager.FlashOn = false;
+            audioSource.clip = soundEffects[4];
+            audioSource.Play();
+        }
+        else
+        {
+            flashLight.gameObject.SetActive(true);
+            manager.FlashOn = true;
+            audioSource.clip = soundEffects[5];
+            audioSource.Play();
+        }
     }
 
     private void SetupAudio()
     {
         audioSource = GetComponent<AudioSource>();
+    }
+    void ExitGame()
+    {
+        Application.Quit();
     }
     private void OnTriggerEnter(Collider other)
     {

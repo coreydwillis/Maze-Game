@@ -12,6 +12,7 @@ public class UITitleScreen : MonoBehaviour
 
     //UI Elements
     public Toggle postProcessingToggle;
+    public Toggle babyToggle;
     public Button startBTN;
     public Button exitBTN;
     public Button websiteBTN;
@@ -46,6 +47,16 @@ public class UITitleScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PostProcessing();
+        BabyMode();
+        manager.fovSet = fovSlider.value;
+        //Set Camera FOV
+        titleCamera.fieldOfView = manager.fovSet;
+        fovValue.text = manager.fovSet.ToString();
+    }
+
+    private void PostProcessing()
+    {
         if (postProcessingToggle.isOn)
         {
             GameObject postPChild = postProcessing.transform.GetChild(0).gameObject;
@@ -58,10 +69,17 @@ public class UITitleScreen : MonoBehaviour
             postPChild.SetActive(false);
             postProcessingToggle.isOn = false;
         }
-        manager.fovSet = fovSlider.value;
-        //Set Camera FOV
-        titleCamera.fieldOfView = manager.fovSet;
-        fovValue.text = manager.fovSet.ToString();
+    }
+    private void BabyMode()
+    {
+        if (babyToggle.isOn)
+        {
+            manager.BabyModeOn = true;
+        }
+        else
+        {
+            manager.BabyModeOn = false;
+        }
     }
 
     public void ResLeft()

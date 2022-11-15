@@ -15,17 +15,41 @@ public class UIMaze : MonoBehaviour
     public TextMeshProUGUI redShards;
     public TextMeshProUGUI purpleShards;
     public TextMeshProUGUI greenShards;
+    public TextMeshProUGUI collectShards;
     //Game Status Conditions
     public TextMeshProUGUI gameLost;
     public TextMeshProUGUI gameWon;
     public Button startOver;
+    private bool isCoroutineExecuting = false;
+    public Light sun;
 
     void Start()
     {
         manager = GameObject.Find("MainManager").GetComponent<MainManager>();
         //Set Camera FOV
+        if (manager.BabyModeOn)
+        {
+            sun.gameObject.SetActive(true);
+        }
         mazeCamera.fieldOfView = manager.fovSet;
         startOver.onClick.AddListener(StartOver);
+        collectShards.gameObject.SetActive(true);
+        StartCoroutine(RemoveCollectShards(8f));
+    }
+
+    IEnumerator RemoveCollectShards(float time)
+    {
+        if (isCoroutineExecuting)
+            yield break;
+
+        isCoroutineExecuting = true;
+
+        yield return new WaitForSeconds(time);
+
+        // Code to execute after the delay
+
+        isCoroutineExecuting = false;
+        collectShards.gameObject.SetActive(false);
     }
 
     // Update is called once per frame

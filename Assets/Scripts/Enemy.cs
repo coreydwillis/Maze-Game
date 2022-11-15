@@ -12,8 +12,8 @@ public class Enemy : MonoBehaviour
     private AudioSource audioSource;
     public LayerMask whatIsGround, whatIsPlayer;
     public AudioClip[] soundEffects;
+    private MainManager manager;
 
- 
     //Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
         player = GameObject.Find("Player").transform;
         LoadAudio();
         agent = GetComponent<NavMeshAgent>();
+        manager = GameObject.Find("MainManager").GetComponent<MainManager>();
     }
 
     public virtual void Update()
@@ -80,7 +81,7 @@ public class Enemy : MonoBehaviour
 
     private void ChasePlayer()
     {
-        if (!alreadyChased)
+        if (!alreadyChased && manager.FlashOn)
         {
             audioSource.clip = soundEffects[0];
             audioSource.Play();
@@ -88,8 +89,14 @@ public class Enemy : MonoBehaviour
             alreadyChased = true;
             Invoke(nameof(ResetChased), timeBetweenChases);
         }
-
-        agent.SetDestination(player.position);
+        if (manager.FlashOn)
+        {
+            agent.SetDestination(player.position);
+        }
+        else
+        {
+            Patroling();
+        }
     }
 
     private void AttackPlayer()
@@ -98,7 +105,7 @@ public class Enemy : MonoBehaviour
 
         transform.LookAt(player);
 
-        if (!alreadyAttacked)
+        if (!alreadyAttacked && manager.FlashOn)
         {
             //Attack logic goes here
             audioSource.clip = soundEffects[2];
